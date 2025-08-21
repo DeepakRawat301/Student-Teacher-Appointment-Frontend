@@ -1,0 +1,128 @@
+.teacher-dashboard-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1f1f2f;
+    min-height: 100vh;
+    color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top Header */
+.dashboard-topbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2b2b44;
+    padding: 15px 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.project-name {
+    margin: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.logout-btn-top {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.logout-btn-top:hover {
+    background-color: #c82333;
+}
+
+.welcome-username {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Portal Heading */
+.portal-heading {
+    margin: 40px 0 20px 0;
+}
+
+.portal-heading h1 {
+    font-size: 2.2rem;
+    color: #f0f0f0;
+}
+
+/* Action Cards */
+.teacher-actions-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.action-card {
+    background-color: #3a3a55;
+    color: #f0f0f0;
+    padding: 30px 25px;
+    border-radius: 15px;
+    width: 320px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.action-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.action-card p {
+    flex-grow: 1;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.action-card button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.action-card button:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+.dashboard-footer {
+    width: 100%;
+    background-color: #2b2b44;
+    padding: 20px 30px;
+    text-align: center;
+    margin-top: auto;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+}
+
+.dashboard-footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}

@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TeacherRegisterService from '../../services/TeacherService/TeacherRegisterService';
+import './UpdateAvailability.css';
 
 const UpdateAvailability = () => {
-
     const navigate = useNavigate();
-
     const [username, setUsername] = useState("");
-    const [teacher, setTeacher] = useState({
-        status: ""
-    });
+    const [teacher, setTeacher] = useState({ status: "" });
 
     const handleChange = (e) => {
         const value = e.target.value;
         setTeacher({ ...teacher, [e.target.name]: value });
     };
 
-    // First get the username from session
     useEffect(() => {
         TeacherRegisterService.getLoggedInUsername()
             .then(response => {
                 const loggedInUsername = response.data;
                 setUsername(loggedInUsername);
-
-                // Fetch teacher details using that username
                 return TeacherRegisterService.getTeacherByUsername(loggedInUsername);
             })
             .then(response => {
@@ -38,7 +32,6 @@ const UpdateAvailability = () => {
         e.preventDefault();
         TeacherRegisterService.updateTeacherStatus(teacher, username)
             .then(response => {
-                console.log("saved", response);
                 alert("Availability Updated Successfully.");
                 navigate("/teacherDashboard");
             })
@@ -48,27 +41,39 @@ const UpdateAvailability = () => {
     };
 
     return (
-        <>
-            <div className='container'>
-                <div className='header'>
-                    <div className='text'>Update Availability</div>
-                    <div className='underline'></div>
-                </div>
-                <div className='inputs'>
-                    <div className='input'>
-                        <select name="status" value={teacher.status} onChange={handleChange}>
-                            <option value="true">Available</option>
-                            <option value="false">Not Available</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='submit'>
-                    <div className='submit'><button onClick={updateStatus}>Update</button></div>
-                    <div className='submit'><button onClick={() => navigate("/teacherDashboard")}>Cancel</button></div>
+        <div className="update-availability-container">
+
+            {/* Top Header */}
+            <header className="dashboard-topbar">
+                <span className="welcome-username">Welcome, {username || "Loading..."}</span>
+                <h2 className="project-name">Teacher Management System</h2>
+                <button className="logout-btn-top" onClick={() => navigate("/teacherLogout")}>Logout</button>
+            </header>
+
+            {/* Portal Heading */}
+            <div className="portal-heading">
+                <h1>Teacher Portal - Update Availability</h1>
+            </div>
+
+            {/* Update Form */}
+            <div className="form-container">
+                <select name="status" value={teacher.status} onChange={handleChange}>
+                    <option value="true">Available</option>
+                    <option value="false">Not Available</option>
+                </select>
+
+                <div className="form-buttons">
+                    <button onClick={updateStatus}>Update</button>
+                    <button onClick={() => navigate("/teacherDashboard")}>Cancel</button>
                 </div>
             </div>
-            <div class="input"><button onClick={() => navigate("/teacherLogout")}>Logout</button></div>
-        </>
+
+            {/* Footer */}
+            <footer className="dashboard-footer">
+                <p>© 2025 Teacher Management System. All rights reserved.</p>
+                <p>Contact: support@teacherportal.com | Phone: +91 1234567890</p>
+            </footer>
+        </div>
     );
 };
 

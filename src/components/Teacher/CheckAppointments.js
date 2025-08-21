@@ -1,47 +1,62 @@
-import React, { useEffect, useState } from 'react'; 
-import { useNavigate, useParams } from 'react-router-dom';     
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import TeacherRegisterService from '../../services/TeacherService/TeacherRegisterService';
+import './CheckAppointments.css';
 
 const CheckAppointments = () => {
     const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState([]);
-    const { username } = useParams();  // Get username from URL
+    const [username, setUsername] = useState("");
+    const { username: paramUsername } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await TeacherRegisterService.getAppointments(username);
+                const response = await TeacherRegisterService.getAppointments(paramUsername);
                 setAppointments(response.data || []);
+                setUsername(paramUsername);
             } catch (error) {
                 console.error("Error fetching appointments:", error);
             }
             setLoading(false);
         };
-        if (username) {
-            fetchData();
-        }
-    }, [username]);
+        if (paramUsername) fetchData();
+    }, [paramUsername]);
 
     const handleStatusChange = async (appointmentId, status) => {
-    try {
-        await TeacherRegisterService.updateAppointmentStatus({ appointmentId, status });
-        alert("Status updated successfully!");
-        window.location.reload(); // Optional: Better to update state instead
-    } catch (error) {
-        console.error("Error updating appointment status:", error);
-        alert("Failed to update status.");
-    }
-};
+        try {
+            await TeacherRegisterService.updateAppointmentStatus({ appointmentId, status });
+            alert("Status updated successfully!");
+            setAppointments(prev =>
+                prev.map(app =>
+                    app.id === appointmentId ? { ...app, status } : app
+                )
+            );
+        } catch (error) {
+            console.error("Error updating appointment status:", error);
+            alert("Failed to update status.");
+        }
+    };
 
     return (
-        <>
-            <div className="teacherlist">
-                <h2>All Appointments for {username}</h2>
+        <div className="check-appointments-container">
+
+            {/* Header */}
+            <header className="dashboard-topbar">
+                <button className="logout-btn-top" onClick={() => navigate("/teacherLogout")}>Logout</button>
+                <h2 className="project-name">Teacher Management System</h2>
+                <span className="welcome-username">Welcome, {username || "Loading..."}</span>
+            </header>
+
+            {/* Portal Heading */}
+            <div className="portal-heading">
+                <h1>Teacher Portal - Appointments</h1>
             </div>
 
-            <div className="table">
+            {/* Table */}
+            <div className="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -58,8 +73,8 @@ const CheckAppointments = () => {
                     </thead>
                     {!loading && (
                         <tbody>
-                            {appointments.map((appointment, index) => (
-                                <tr key={index}>
+                            {appointments.map((appointment) => (
+                                <tr key={appointment.id}>
                                     <td>{appointment.id}</td>
                                     <td>{appointment.teacherName}</td>
                                     <td>{appointment.studentName}</td>
@@ -68,9 +83,9 @@ const CheckAppointments = () => {
                                     <td>{new Date(appointment.endTime).toLocaleTimeString()}</td>
                                     <td>{appointment.message}</td>
                                     <td>{appointment.status}</td>
-                                    <td>
-                                        <button onClick={() => handleStatusChange(appointment.id, 'approved')}>Approve</button>
-                                        <button onClick={() => handleStatusChange(appointment.id, 'declined')}>Decline</button>
+                                    <td className="action-buttons">
+                                        <button className="approve-btn" onClick={() => handleStatusChange(appointment.id, 'approved')}>Approve</button>
+                                        <button className="decline-btn" onClick={() => handleStatusChange(appointment.id, 'declined')}>Decline</button>
                                     </td>
                                 </tr>
                             ))}
@@ -78,9 +93,18 @@ const CheckAppointments = () => {
                     )}
                 </table>
             </div>
-            <div class="input"><button onClick={() => navigate("/studentLogout")}>Logout</button></div>
-            <div className='submit'><button onClick={() => navigate("/teacherDashboard")}>Cancel</button></div>
-        </>
+
+            {/* Footer / Navigation */}
+            <div className="footer-buttons">
+                <button onClick={() => navigate("/teacherDashboard")}>Back</button>
+            </div>
+
+            {/* Footer */}
+            <footer className="dashboard-footer">
+                <p>© 2025 Teacher Management System. All rights reserved.</p>
+                <p>Contact: support@teacherportal.com | Phone: +91 1234567890</p>
+            </footer>
+        </div>
     );
 };
 

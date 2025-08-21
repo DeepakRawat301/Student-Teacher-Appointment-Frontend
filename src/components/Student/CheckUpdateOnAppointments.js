@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'; 
 import { useNavigate, useParams } from 'react-router-dom';    
 import StudentServices from '../../services/StudentService/StudentServices';
+import './CheckUpdateOnAppointments.css';
 
 const CheckUpdateOnAppointments = () => {
-
     const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState([]);
-    const { username } = useParams();  // Get username from URL
+    const { username } = useParams();
     const navigate = useNavigate();
 
-      useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
@@ -20,21 +20,28 @@ const CheckUpdateOnAppointments = () => {
             }
             setLoading(false);
         };
-        if (username) {
-            fetchData();
-        }
+        if (username) fetchData();
     }, [username]);
 
+    return (
+        <div className="appointments-container">
 
+            {/* Top Header */}
+            <header className="appointments-topbar">
+                <span className="welcome-username">Welcome, {username || "Loading..."}</span>
+                <h2 className="project-name">Student Management System</h2>
+                <button className="logout-btn-top" onClick={() => navigate("/studentLogout")}>Logout</button>
+            </header>
 
-  return (
-    <>
-        <div className="teacherlist">
-                <h2>All Appointments for {username}</h2>
+            {/* Portal Heading */}
+            <div className="portal-heading">
+                <h1>Appointments Portal</h1>
+                <h3>All Appointments for {username}</h3>
             </div>
 
-            <div className="table">
-                <table>
+            {/* Table */}
+            <div className="table-wrapper">
+                <table className="appointments-table">
                     <thead>
                         <tr>
                             <th>Appointment ID</th>
@@ -65,10 +72,19 @@ const CheckUpdateOnAppointments = () => {
                     )}
                 </table>
             </div>
-            <div class="input"><button onClick={() => navigate("/studentLogout")}>Logout</button></div>
-            <div class='submit'><button onClick={()=>navigate("/studentDashboard")}>Back</button></div>
-    </>
-  )
-}
 
-export default CheckUpdateOnAppointments
+            {/* Navigation Buttons */}
+            <div className="dashboard-actions">
+                <button onClick={() => navigate("/studentDashboard")}>Back</button>
+            </div>
+
+            {/* Footer */}
+            <footer className="dashboard-footer">
+                <p>© 2025 Student Management System. All rights reserved.</p>
+                <p>Contact: support@studentportal.com | Phone: +91 1234567890</p>
+            </footer>
+        </div>
+    );
+};
+
+export default CheckUpdateOnAppointments;

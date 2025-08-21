@@ -1,0 +1,94 @@
+/* Dark themed student login page */
+
+.student-login-container {
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.student-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.student-header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #00bcd4;
+}
+
+.student-header h2 {
+  font-size: 24px;
+  font-weight: normal;
+  color: #f5f5f5;
+}
+
+.student-login-form {
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 188, 212, 0.4);
+}
+
+.student-login-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #2c2c2c;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.student-login-form input::placeholder {
+  color: #bbbbbb;
+}
+
+.student-login-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.student-login-buttons button {
+  flex: 1 1 30%;
+  padding: 10px;
+  background-color: #00bcd4;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.student-login-buttons button:hover {
+  background-color: #0097a7;
+}
+
+.student-register-note {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.student-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #888888;
+  padding-top: 20px;
+  border-top: 1px solid #333333;
+}
