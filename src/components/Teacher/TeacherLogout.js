@@ -10,7 +10,7 @@ const TeacherLogout = () => {
       TeacherRegisterService.logout()
           .then(response => {
               console.log("Logged out successfully:", response);
-              navigate("/login");
+              navigate("/teacherlogin");
           })
           .catch(error => {
               console.error("Error logging out:", error);
