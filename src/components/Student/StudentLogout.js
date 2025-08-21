@@ -10,7 +10,7 @@ const StudentLogout = () => {
       StudentServices.logout()
           .then(response => {
               console.log("Logged out successfully:", response);
-              navigate("/login");
+              navigate("/studentlogin");
           })
           .catch(error => {
               console.error("Error logging out:", error);
